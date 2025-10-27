@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="loginState" class="logout"> <button @click="getLogout()"> Logout </button>
+  </div>
+  <homePage />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import homePage from './components/homePage.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    homePage,
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.logout {
+  text-align: right;
+  padding: 10px;
 }
 </style>
