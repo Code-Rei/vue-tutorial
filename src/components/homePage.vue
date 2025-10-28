@@ -1,34 +1,27 @@
 <template>
-  <!-- Quiz Component -->
-  <div>
-    <h1>Quiz</h1>
-    <p>In this component we'll create a quiz application.</p>
-    <h3>Technology</h3>
-    <label for="TechStack">Java</label>
-    <input type="checkbox" id="Java" value="Java" v-model="TechStack" />
-    <label for="TechStack">JavaScript</label>
-    <input
-      type="checkbox"
-      id="JavaScript"
-      value="JavaScript"
-      v-model="TechStack"
-    />
-    <label for="TechStack">Python</label>
-    <input type="checkbox" id="Python" value="Python" v-model="TechStack" />
-
-    <h3>Profession</h3>
-    <select v-model="profession">
-      <option value="Developer">Developer</option>
-      <option value="Designer">Designer</option>
-      <option value="Manager">Manager</option>
-    </select>
+  <div class="button"><button @click="logout">Logout</button></div>
+  <div class="pages">
+    <div @click="goToQuiz()" class="page">Quiz</div>
+    <div class="page">Other</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "homePage",
-  props: ["loginstate"],
+  // ... your data/props ...
+  methods: {
+    logout() {
+      // 1. Update the state to 'logged out'
+      localStorage.setItem("loginState", JSON.stringify(false));
+
+      // 2. (REPLACE THE $EMIT) Use the router to navigate to the 'Login' page
+      this.$router.push("/login");
+    },
+    goToQuiz() {
+      this.$router.push("/quizPage");
+    },
+  },
 };
 </script>
 <style scoped>
@@ -37,6 +30,16 @@ export default {
   color: #9b9fa1;
   font-family: "helvetic", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
-
+.button {
+  display: flex;
+  justify-content: flex-end;
+}
+.page {
+  margin: 5px;
+}
 </style>

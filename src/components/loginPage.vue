@@ -1,6 +1,6 @@
 <template>
   <!-- login -->
-  <div v-if="loginState">
+  <div>
     <div class="login-container">
       <form class="login-form" @submit.prevent="getLogin()">
         <h1>Welcome Back</h1>
@@ -29,7 +29,7 @@
         </div>
 
         <button type="submit" class="login-button">Sign In</button>
-
+        <p style="color: #ff0035">{{ error }}</p>
         <div class="form-footer">
           <a href="#">Forgot Password?</a>
         </div>
@@ -44,14 +44,8 @@ export default {
     return {
       username: "",
       password: "",
+      error: "",
     };
-  },
-  created() {
-    // Check localStorage when component loads
-    const savedState = localStorage.getItem("loginState");
-    if (savedState !== null) {
-      this.loginState = JSON.parse(savedState);
-    }
   },
   methods: {
     toggleLogin() {
@@ -77,17 +71,21 @@ export default {
       );
       console.log("Valid User:", validUser);
 
+      // ... inside getLogin() method ...
       if (validUser) {
-        alert("Login Successful!");
-        this.$emit("update-login-state", false); // ← notify parent
-        localStorage.setItem("loginState", JSON.stringify(false));
+        alert("Login Successful");
+
+        // 1. Set the localStorage state so the router guard knows we are logged in
+        localStorage.setItem("loginState", JSON.stringify(true));
+
+        // 2. (REPLACE THE $EMIT) Use the router to navigate to the 'Home' page.
+        this.$router.push("/home"); // <-- This is the new line
       } else {
-        alert("Login Failed! Invalid username or password.");
+        this.error = "SIKE THAT'S THE WRONG NUMBER";
+        return this.error;
+        // alert("Login Failed! Invalid username or password.");
       }
-    },
-    getLogout() {
-      this.$emit("update-login-state", true); // ← notify parent
-      localStorage.setItem("loginState", JSON.stringify(true));
+      // ...
     },
   },
 };
