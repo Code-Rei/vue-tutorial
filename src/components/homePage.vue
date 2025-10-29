@@ -19,7 +19,7 @@ export default {
       this.$router.push("/login");
     },
     goToQuiz() {
-      this.$router.push("/quizPage");
+      this.$router.push("/quiz");
     },
   },
 };
@@ -35,10 +35,12 @@ export default {
   justify-content: center;
   box-sizing: border-box;
 }
+
 .button {
   display: flex;
   justify-content: flex-end;
 }
+
 .page {
   margin: 5px;
 }
