@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../components/homePage.vue";
 import LoginPage from "../components/loginPage.vue";
 import QuizPage from "@/components/quizPage.vue";
+import randomWebPage from "@/components/randomWebPage.vue";
 
 // 1. Define your routes
 const routes = [
@@ -24,6 +25,13 @@ const routes = [
     path: "/quiz",
     name: "quiz",
     component: QuizPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/randomWebPage",
+    name: "randomWebPage",
+    component: randomWebPage,
+    meta: { requiresAuth: true },
   },
 ];
 
