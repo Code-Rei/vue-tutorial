@@ -4,7 +4,7 @@
     <transition name="fade">
       <div class="type-container" v-if="showSetupPanel">
         <fieldset class="type-block">
-          <legend>No. of Questions</legend>
+          <legend>Number of Questions</legend>
           <input type="number" min="1" v-model="noOfQuestions">
         </fieldset>
 
