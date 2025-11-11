@@ -38,6 +38,8 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   name: "loginPage",
   data() {
@@ -53,21 +55,32 @@ export default {
       // Save to localStorage
       localStorage.setItem("loginState", JSON.stringify(this.loginState));
     },
-    getLogin() {
-      const users = [
-        { username: "admin", password: "1234" },
-        { username: "user1", password: "abcd" },
-        { username: "guest", password: "guest" },
-      ];
-      console.log("Entered:", this.username, this.password);
-      // Assuming you have data properties bound to input fields
+    async getLogin() {
+      let users = [];
       const enteredUsername = this.username;
       const enteredPassword = this.password;
-
-      // Check if a user matches the entered credentials
+      try {
+        const dbUsers = await axios.post(
+          "https://script.google.com/macros/s/AKfycbwN3u6k3HZDtUjneXcMsakS5e4pY6WI8Sve9MgT2tJifLnrdKR3dTV7GnymLfYL2KVECg/exec",
+          {
+            apiKey: "FJ0t4SVe_jeMgPSv8cjb1MRFt-xu4yC_",
+            action: "getAllUsers",
+            payload: {},
+          },
+          {
+            headers: {
+              "Content-Type": "text/plain",
+            },
+          }
+        );
+        console.log(dbUsers.data.users);
+        users = dbUsers.data.users;
+      } catch (error) {
+        alert("Error fetching words:", error);
+      }
       const validUser = users.find(
         (user) =>
-          user.username === enteredUsername && user.password === enteredPassword
+          user.Username === enteredUsername && user.Password === enteredPassword
       );
       console.log("Valid User:", validUser);
 
