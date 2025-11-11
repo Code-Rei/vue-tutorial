@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: "randomWebPage",
     data() {
@@ -44,32 +46,61 @@ export default {
                 { label: "Brazilian Portuguese", code: "pt-br" },
                 { label: "Chinese", code: "zh" }
             ],
+            loading: false,
         };
     },
     methods: {
         async fetchWords() {
             this.randomWords = [];
-            if (!this.lang) {
-                try {
-                    const url = `https://random-word-api.herokuapp.com/word?number=${this.wordCount}`;
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    this.randomWords = data;
-                } catch (error) {
-                    console.error("Error fetching words:", error);
-                }
+            try {
+                const response = await axios.get('https://random-word-api.herokuapp.com/word', {
+                    params: {
+                        number: this.wordCount,
+                        lang: this.lang ? this.lang.code : undefined
+                    }
+                });
+                this.randomWords = response.data;
+            } catch (error) {
+                console.error("Error fetching words:", error);
             }
-            else {
-                try {
-                    const url = `https://random-word-api.herokuapp.com/word?number=${this.wordCount}&lang=${this.lang.code}`;
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    this.randomWords = data;
-                } catch (error) {
-                    console.error("Error fetching words:", error);
-                }
-            }
-        }
+        },
+        // async fetchWords() {
+        //     this.randomWords = [];
+        //     let url = `https://random-word-api.herokuapp.com/word?number=${this.wordCount}`;
+        //     if (this.lang) {
+        //         url += `&lang=${this.lang.code}`;
+        //     }
+        //     try {
+        //         const response = await fetch(url);
+        //         const data = await response.json();
+        //         this.randomWords = data;
+        //     } catch (error) {
+        //         console.error("Error fetching words:", error);
+        //     }
+        // },
+        // async fetchWords() {
+        //     this.randomWords = [];
+        //     if (!this.lang) {
+        //         try {
+        //             const url = `https://random-word-api.herokuapp.com/word?number=${this.wordCount}`;
+        //             const response = await fetch(url);
+        //             const data = await response.json();
+        //             this.randomWords = data;
+        //         } catch (error) {
+        //             console.error("Error fetching words:", error);
+        //         }
+        //     }
+        //     else {
+        //         try {
+        //             const url = `https://random-word-api.herokuapp.com/word?number=${this.wordCount}&lang=${this.lang.code}`;
+        //             const response = await fetch(url);
+        //             const data = await response.json();
+        //             this.randomWords = data;
+        //         } catch (error) {
+        //             console.error("Error fetching words:", error);
+        //         }
+        //     }
+        // }
 
     },
 };
