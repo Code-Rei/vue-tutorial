@@ -6,13 +6,10 @@
 </template>
 
 <script>
-
 export default {
   name: "homePage",
   // ... your data/props ...
-  methods: {
-
-  },
+  methods: {},
 };
 </script>
 <style scoped>
@@ -38,7 +35,7 @@ export default {
   border: 1px solid #e8e8e8;
   transition: all 0.3s;
   text-decoration: none;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 .button:active {
@@ -51,13 +48,12 @@ export default {
   justify-content: flex-end;
 }
 
-.logout>button {
+.logout > button {
   display: flex;
   justify-content: flex-end;
   font-size: 12px;
   color: white;
   background: rgb(73, 72, 72);
-
 }
 
 .page {

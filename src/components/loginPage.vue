@@ -83,7 +83,7 @@ export default {
           user.Username === enteredUsername && user.Password === enteredPassword
       );
       console.log("Valid User:", validUser);
-
+      localStorage.setItem("validuser", JSON.stringify(validUser));
       // ... inside getLogin() method ...
       if (validUser) {
         alert("Login Successful");
